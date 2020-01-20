@@ -23,3 +23,11 @@ Other endpoints:
   - /api/v1/get-bucket-objects-encryption
   
 Encryption endpoints require Admin token
+
+To build and run this API, in the root run:
+go install
+go build -o s3_api.exe
+
+This will build s3_api.exe - this is the file to run.
+
+To debug, I have been using GoLand from JetBrains
