@@ -1,0 +1,467 @@
+{
+	"info": {
+		"_postman_id": "e3af124a-4cbc-4a9f-88fb-f3838dc48a5b",
+		"name": "go_jwt_api",
+		"description": "Go JWT API project tests and integration",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "s3_api_integration_tests",
+			"item": [
+				{
+					"name": "get_auth_from_service USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "148bf6e2-d54e-4f7a-ac03-b7d587a7143f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var Authorization = responseHeaders.Authorization;",
+									"postman.setEnvironmentVariable(\"token\", Authorization);",
+									"setTimeout(function(){}, 200);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "user",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "userpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_all_s3_buckets",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "a174a11e-0777-4051-a79b-161b12fbf8a9",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": " {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/list-all-buckets",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"list-all-buckets"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "list_all_s3_buckets_and_objects",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2fc2d091-cca9-4ee3-8b1a-7033bc952540",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"value": " {{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/list-all-objects",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"list-all-objects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get bucket encryption USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "5ef5dbc9-c5a7-4f34-8263-bdff93e2f2a0",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-all-buckets-encryption",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-all-buckets-encryption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific bucket encryption USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9923c18b-6550-41f5-a9cf-981d33c577e6",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-specific-bucket-encryption?key=renton-david-genesys-1",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-specific-bucket-encryption"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "renton-david-genesys-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get bucket object encryption USER",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "abb369dd-8879-4e4d-a4cf-cebbf20b166d",
+								"exec": [
+									"pm.test(\"Status code is 401\", function () {\r",
+									"    pm.response.to.have.status(401);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-bucket-objects-encryption",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-bucket-objects-encryption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get_auth_from_service ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "148bf6e2-d54e-4f7a-ac03-b7d587a7143f",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"var Authorization = responseHeaders.Authorization;",
+									"postman.setEnvironmentVariable(\"token\", Authorization);",
+									"setTimeout(function(){}, 200);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"type": "text",
+								"value": "application/x-www-form-urlencoded"
+							}
+						],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "Name",
+									"value": "admin",
+									"type": "text"
+								},
+								{
+									"key": "Password",
+									"value": "adminpass",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/auth",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get bucket encryption ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3e4b1bf7-2ec2-498b-9bb8-3736eec3d190",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-all-buckets-encryption",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-all-buckets-encryption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get specific bucket encryption ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "937b0726-a8a2-44fc-bdb6-01a75f3871c5",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-specific-bucket-encryption?key=renton-david-genesys-1",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-specific-bucket-encryption"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "renton-david-genesys-1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get bucket object encryption ADMIN",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "aef3409e-64c7-4ae4-a0a5-884439108ba1",
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Auth",
+								"type": "text",
+								"value": " {{token}}"
+							}
+						],
+						"url": {
+							"raw": "{{url}}:{{port}}{{sub}}/get-bucket-objects-encryption",
+							"host": [
+								"{{url}}"
+							],
+							"port": "{{port}}{{sub}}",
+							"path": [
+								"get-bucket-objects-encryption"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "default_no_endpoint",
+					"request": {
+						"method": "VIEW",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
